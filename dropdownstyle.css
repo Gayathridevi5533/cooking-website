@@ -1,0 +1,32 @@
+.dropdown{
+    display: inline-block;
+}
+.dropdown button{
+    background-color: lab(60.2% 19.87 51.61);
+    color: #232121;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown a{
+    display: block;
+    color:#161614;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.dropdown .content{
+    display: none;
+    position: absolute;
+    background-color: hsla(55, 73%, 70%, 0.872);
+    min-width: 100px;
+    box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
+}
+.dropdown:hover .content{
+    display: block;
+}
+.dropdown:hover button{
+    background-color:  lab(60.2% 19.87 51.61);
+}
+.dropdown a:hover{
+    background-color: #c09d9de6;
+}
