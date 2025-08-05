@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details - Culinary Delights</title>
+    <link rel="stylesheet" href="cooking-recipe1.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                Back to home page
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="recipe-grid">
+                <!-- Recipe Image -->
+                <div class="recipe-image-section">
+                    <div class="image-container">
+                        <img id="recipe-image" src="src/assets/asian-stir-fry.jpg" alt="Recipe Image" class="recipe-image">
+                        <span id="recipe-category" class="category-badge">South Indian</span>
+                    </div>
+                </div>
+
+                <!-- Recipe Info -->
+                <div class="recipe-info-section">
+                    <h1 <span class="gradient-text">Idly Sambar</span></h1>
+                    <p id="recipe-description" class="recipe-description">
+                       Idli Sambar is a beloved staple of South Indian cuisine—a comforting, nutritious combo of soft, steamed idlis served with a flavorful, tangy lentil stew called sambar.
+                    </p>
+                    
+                    <!-- Rating -->
+                    <div class="rating-section">
+                        <div class="stars" id="recipe-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span id="recipe-rating" class="rating-number">4.6</span>
+                        <span id="recipe-reviews" class="reviews-count">(189 reviews)</span>
+                    </div>
+
+                    <!-- Recipe Meta -->
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="meta-label">Cook Time</div>
+                            <div id="cook-time" class="meta-value">30 - 35 min</div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <div class="meta-label">Servings</div>
+                            <div id="servings" class="meta-value">4</div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-chef-hat"></i>
+                            <div class="meta-label">Difficulty</div>
+                            <div id="difficulty" class="meta-value">Easy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ingredients and Instructions -->
+            <div class="content-grid">
+                <!-- Ingredients -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Ingredients</h2>
+                        <p class="card-description">Everything you need for this recipe</p>
+                    </div>
+                    <div class="card-content">
+                        <ul id="ingredients-list" class="ingredients-list">
+                            <li><span class="bullet"></span>2 cups mixed vegetables (bell peppers, broccoli, carrots)</li>
+                            <li><span class="bullet"></span>2 tbsp vegetable oil</li>
+                            <li><span class="bullet"></span>3 cloves garlic, minced</li>
+                            <li><span class="bullet"></span>1 inch ginger, grated</li>
+                            <li><span class="bullet"></span>3 tbsp soy sauce</li>
+                            <li><span class="bullet"></span>1 tbsp sesame oil</li>
+                            <li><span class="bullet"></span>1 tsp cornstarch</li>
+                            <li><span class="bullet"></span>2 green onions, sliced</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Instructions</h2>
+                        <p class="card-description">Step-by-step cooking guide</p>
+                    </div>
+                    <div class="card-content">
+                        <ol id="instructions-list" class="instructions-list">
+                            <li><span class="step-number">1</span>Heat vegetable oil in a large wok or skillet over high heat.</li>
+                            <li><span class="step-number">2</span>Add garlic and ginger, stir-fry for 30 seconds.</li>
+                            <li><span class="step-number">3</span>Add harder vegetables first (carrots, broccoli) and cook for 2-3 minutes.</li>
+                            <li><span class="step-number">4</span>Add softer vegetables (bell peppers) and cook for another 2 minutes.</li>
+                            <li><span class="step-number">5</span>Mix soy sauce with cornstarch and add to the pan.</li>
+                            <li><span class="step-number">6</span>Drizzle with sesame oil and toss everything together.</li>
+                            <li><span class="step-number">7</span>Garnish with green onions and serve immediately over rice.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="cooking-recipe1.js"></script>
+</body>
+</html>
