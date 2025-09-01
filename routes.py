@@ -44,8 +44,16 @@ def all_recipes():
     conn.close()
     return render_template('all_recipes.html',page_title='ALL Recipes',recipes=recipes)
 
-
-
+@app.route('/recipe/<int:id>')
+def recipe (id):
+    conn = sqlite3.connect('cooking.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Recipe WHERE id=?;', (id,))
+    #fetchone returns a tuple containing the result , OR NONE!
+    recipe = cur.fetchone()
+    title = recipe[1].upper() + 'RECIPE'
+    return render_template('recipe.html', page_title=title,
+                           recipe=recipe)
 
 if (__name__) == ("__main__"):
     app.run(debug=True)

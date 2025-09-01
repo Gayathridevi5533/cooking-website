@@ -5,7 +5,7 @@
 <ul>
 
     {% for recipe in recipes %}
-        <li>{{ recipe[1] }}</li>
+        <li><a href="/recipe/{{ recipe[0] }}">{{ recipe[1] }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
