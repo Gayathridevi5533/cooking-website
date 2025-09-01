@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import sqlite3
 
 app = Flask(__name__)
 
@@ -29,6 +30,21 @@ def regional():
 @app.route('/desserts')
 def desserts():
     return render_template('desserts.html', page_title='DESSERTS')
+
+#list all the cusines and recipes in alphabetic order 
+#eventually link each one to a details page 
+@app.route('/all_recipes')
+def all_recipes():
+    conn = sqlite3.connect('cooking.db')
+    cur = conn.cursor()
+    cur.execute('SELECT id , name FROM Recipe ORDER BY name ASC;')
+    # fetchall returns a list of results 
+    recipes= cur.fetchall()
+    print(recipes) #DEBUG
+    conn.close()
+    return render_template('all_recipes.html',page_title='ALL Recipes',recipes=recipes)
+
+
 
 
 if (__name__) == ("__main__"):
