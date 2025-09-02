@@ -42,40 +42,14 @@ def recipes():
     #recipes = [{"id": row[0], "title":row[1] ,"description":row[2], "difficulty":row[3], "serving":[4], "cookTime":[5],"image":"https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg","category":"South Indian"} for row in rows]  # Example data
     return jsonify(recipes)
 
-
-#norht indian route - called by NORTH INDIAN in the the nav bar and returns information about the site 
-@app.route('/north indian')
-def northindian():
-    return render_template('north indian.html', page_title='NORTH INDIAN')
-
-#street food route - called by STREET FOOD in the the nav bar and returns information about the site 
-@app.route('/street food')
-def streetfood():
-    return render_template('street food.html', page_title='STREET FOOD')
-
-#one pot route - called by ONE POT in the the nav bar and returns information about the site 
-@app.route('/one pot')
-def onepot():
-    return render_template('one pot.html', page_title='ONE POT')
-
-#regional route - called by REGIONAL in the the nav bar and returns information about the site 
-@app.route('/regional')
-def regional():
-    return render_template('regional.html', page_title='REGIONAL')
-
-#desserts route - called by DESSERTS in the the nav bar and returns information about the site 
-@app.route('/desserts')
-def desserts():
-    return render_template('desserts.html', page_title='DESSERTS')
-
-#list all the cusines and recipes in alphabetic order 
+#list all the cusines and recipes (in alphabetic order)
 #eventually link each one to a details page 
 @app.route('/all_recipes')
 def all_recipes():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
     cur.execute('SELECT id , name FROM Recipe ORDER BY name ASC;')
-    # fetchall returns a list of results 
+    # fetchall- returns a list of results 
     recipes= cur.fetchall()
     print(recipes) #DEBUG
     conn.close()
