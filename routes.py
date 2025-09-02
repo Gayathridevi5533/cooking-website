@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, request, jsonify, render_template
+
 import sqlite3
 
 app = Flask(__name__)
@@ -6,12 +7,41 @@ app = Flask(__name__)
 #root route
 @app.route('/')
 def root():
-    return render_template('home.html', page_title='HOME')
+    conn = sqlite3.connect('cooking.db')
+    cur = conn.cursor()
+    cur.execute('SELECT id, name FROM Category ORDER BY name ASC;')
+    # fetchall returns a list of results 
+    cuisines = cur.fetchall()
+    print(cuisines) #DEBUG
+    conn.close()
+    return render_template('cooking-website.html', page_title='HOME', cuisines=cuisines)
 
 #south indian route - called by SOUTH INDIAN in the the nav bar and returns information about the site 
-@app.route('/south indian')
-def southindian():
-    return render_template('south indian.html', page_title='SOUTH INDIAN')
+@app.route('/api/recipes', methods=['POST'])
+def recipes():
+    conn = sqlite3.connect('cooking.db')
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT r.id, r.name, r.description, r.difficulty, r.servings, r.cookTime, r.category, c.name as categoryName, image FROM Recipe r INNER JOIN Category AS c ON r.category = c.id ORDER BY r.name ASC;"
+    )    
+    # fetchall returns a list of results 
+    rows = cur.fetchall()
+    conn.close()
+
+    recipes = [{
+        "id": row[0],
+        "title": row[1],
+        "description": row[2],
+        "difficulty": row[3],
+        "servings": row[4],
+        "cookTime": row[5],
+        "image": "/static/images/" + row[8],
+        "category": row[7]
+    } for row in rows]
+
+    #recipes = [{"id": row[0], "title":row[1] ,"description":row[2], "difficulty":row[3], "serving":[4], "cookTime":[5],"image":"https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg","category":"South Indian"} for row in rows]  # Example data
+    return jsonify(recipes)
+
 
 #norht indian route - called by NORTH INDIAN in the the nav bar and returns information about the site 
 @app.route('/north indian')
