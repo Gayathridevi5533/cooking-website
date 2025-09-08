@@ -169,7 +169,7 @@ function renderRecipes() {
                         <span>${recipe.difficulty}</span>
                     </div>
                 </div>
-                <button class="recipe-btn" onclick="selectRecipe('${recipe.title}'); event.stopPropagation();">
+                <button class="recipe-btn" onclick="window.location.href='/recipe1?id=${recipe.id}'; event.stopPropagation();">
                     View Recipe
                 </button>
             </div>

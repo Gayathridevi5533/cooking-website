@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish-Recipe</title>
+    <link rel="stylesheet" href="../static/css/cooking-recipe.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+{% block content %}
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                Back to home page
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="recipe-grid">
+                <!-- Recipe Image -->
+                <div class="recipe-image-section">
+                    <div class="image-container">
+                        <img id="recipe-image" alt="Recipe Image" class="recipe-image">
+                        <span id="recipe-category" class="category-badge"></span>
+                    </div>
+                </div>
+
+                <!-- Recipe Info -->
+                <div class="recipe-info-section">
+                    <h1><span id="recipe-title" class="gradient-text"></span></h1>
+                    <p id="recipe-description" class="recipe-description">
+                    </p>
+
+                    <!-- Recipe Meta -->
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="meta-label">Cook Time</div>
+                            <div id="cook-time" class="meta-value"></div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <div class="meta-label">Servings</div>
+                            <div id="servings" class="meta-value"></div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-chef-hat"></i>
+                            <div class="meta-label">Difficulty</div>
+                            <div id="difficulty" class="meta-value"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ingredients and Instructions -->
+            <div class="content-grid">
+                <!-- Ingredients -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Ingredients</h2>
+                        <p class="card-description">Everything you need for this recipe</p>
+                    </div>
+                    <div class="card-content">
+                        <ul id="ingredients-list" class="ingredients-list">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Instructions</h2>
+                        <p class="card-description">Step-by-step cooking guide</p>
+                    </div>
+                    <div class="card-content">
+                        <ol id="instructions-list" class="instructions-list">
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section" style="text-align: center;">
+                <div class="cta-card">
+                    <h3>Ready to Start Cooking?</h3>
+                    <p>Join thousands of home cooks who have transformed their kitchens with our recipes</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const recipeId = "{{ recipe_id }}";
+    </script>
+    <script src="../static/js/cooking-recipe.js"></script>
+{% endblock %}
+</body>
+</html>

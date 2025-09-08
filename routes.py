@@ -55,17 +55,46 @@ def all_recipes():
     conn.close()
     return render_template('all_recipes.html',page_title='ALL Recipes',recipes=recipes)
 
-#maps the recipe to show its description and other details
-@app.route('/recipe/<int:id>')
-def recipe (id):
+@app.route('/api/recipe', methods=['POST'])
+def recipe():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
-    cur.execute('SELECT * FROM Recipe WHERE id=?;', (id,))
-    #fetchone returns a tuple containing the result , OR NONE!
-    recipe = cur.fetchone()
-    title = recipe[1].upper() + 'RECIPE'
-    return render_template('recipe.html', page_title=title,
-                           recipe=recipe)
+    cur.execute(
+        "SELECT r.id, r.name, r.description, r.difficulty, r.servings, r.cookTime, r.category, ii.ingredient, ii.instruction, r.image, c.name as categoryName FROM Category c INNER JOIN Recipe r ON c.id = r.category INNER JOIN IngredientsAndInstructions AS ii ON r.id = ii.recipe_id ORDER BY r.name ASC;"
+    )    
+    # fetchall returns a list of results 
+    rows = cur.fetchall()
+    conn.close()
+
+    recipes = []
+    for row in rows:
+        ingredients_str = row[7]
+        instructions_str = row[8]
+        
+        ingredients_list = [item.strip() for item in ingredients_str.split(',')] if ingredients_str else []
+        instructions_list = [item.strip() for item in instructions_str.split(',')] if instructions_str else []
+
+        recipes.append({
+            "id": row[0],
+            "title": row[1],
+            "description": row[2],
+            "difficulty": row[3],
+            "servings": row[4],
+            "cookTime": row[5],
+            "ingredients": ingredients_list,
+            "instructions": instructions_list,
+            "image": "/static/images/" + row[9],
+            "category": row[10]
+        })
+
+    #recipes = [{"id": row[0], "title":row[1] ,"description":row[2], "difficulty":row[3], "serving":[4], "cookTime":[5],"image":"https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg","category":"South Indian"} for row in rows]  # Example data
+    return jsonify(recipes)
+
+#maps the recipe to show its description and other details
+@app.route('/recipe1', methods=['GET'])
+def recipe1():
+    recipe_id = request.args.get('id')
+    return render_template('cooking-recipe.html', page_title="Test", recipe_id=recipe_id)
 
 if (__name__) == ("__main__"):
     app.run(debug=True)

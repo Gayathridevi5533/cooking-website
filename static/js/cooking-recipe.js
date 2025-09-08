@@ -1,5 +1,6 @@
 // Recipe data
-const recipes = [
+var recipes = [];
+const recipes1 = [
     {
         id: 1,
         title: "Creamy Tuscan Pasta",
@@ -187,16 +188,25 @@ const recipes = [
     }
 ];
 
-// Get recipe ID from URL parameters or default to recipe 2
-function getRecipeId() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return parseInt(urlParams.get('id')) || 2;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    fetch("/api/recipe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        recipes = data;
+        console.log("Received JSON:", data);
+        loadRecipe();
+        // Update the page dynamically here…
+    })
+    .catch(err => console.error("Error:", err));
+});
 
 // Load and display recipe details
 function loadRecipe() {
-    const recipeId = getRecipeId();
-    const recipe = recipes.find(r => r.id === recipeId);
+    //const recipeId = recipeId;
+    const recipe = recipes.find(r => r.id === parseInt(recipeId));
     
     if (!recipe) {
         // If recipe not found, show default recipe
@@ -209,14 +219,14 @@ function loadRecipe() {
     document.getElementById('recipe-image').src = recipe.image;
     document.getElementById('recipe-image').alt = recipe.title;
     document.getElementById('recipe-category').textContent = recipe.category;
-    document.getElementById('recipe-rating').textContent = recipe.rating;
-    document.getElementById('recipe-reviews').textContent = `(${recipe.reviews} reviews)`;
+    //document.getElementById('recipe-rating').textContent = recipe.rating;
+    //document.getElementById('recipe-reviews').textContent = `(${recipe.reviews} reviews)`;
     document.getElementById('cook-time').textContent = recipe.cookTime;
     document.getElementById('servings').textContent = recipe.servings;
     document.getElementById('difficulty').textContent = recipe.difficulty;
     
     // Update stars
-    updateStars(recipe.rating);
+    // updateStars(recipe.rating);
     
     // Update ingredients
     const ingredientsList = document.getElementById('ingredients-list');
@@ -261,7 +271,7 @@ function updateStars(rating) {
 // Back button functionality
 function goBack() {
     // You can replace this with your main page URL
-    window.location.href = 'cooking-website.html';
+    window.location.href = '/';
 }
 
 // Initialize the page
