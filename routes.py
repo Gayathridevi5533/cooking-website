@@ -41,8 +41,8 @@ def recipes():
 
     #recipes = [{"id": row[0], "title":row[1] ,"description":row[2], "difficulty":row[3], "serving":[4], "cookTime":[5],"image":"https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg","category":"South Indian"} for row in rows]  # Example data
     return jsonify(recipes)
+#list all the cuisines and recipes (in alphabetic order)
 
-#list all the cusines and recipes (in alphabetic order)
 #eventually link each one to a details page 
 @app.route('/all_recipes')
 def all_recipes():
