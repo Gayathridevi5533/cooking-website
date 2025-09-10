@@ -11,7 +11,7 @@ def root():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
     cur.execute('SELECT id, name FROM Category ORDER BY name ASC;')
-    # fetchall returns a list of results 
+    # fetchall returns a list of results
     cuisines = cur.fetchall()
     print(cuisines)  # DEBUG
     conn.close()
@@ -31,8 +31,8 @@ def recipes():
         " r.cookTime, r.category, c.name as categoryName,"
         " image FROM Recipe r INNER JOIN Category AS c ON r.category = c.id "
         "ORDER BY r.name ASC;"
-    )    
-    # fetchall returns a list of results 
+    )
+    # fetchall returns a list of results
     rows = cur.fetchall()
     conn.close()
 
@@ -47,7 +47,7 @@ def recipes():
         "category": row[7]
     } for row in rows]
 
-    # recipes = [{"id": row[0], "title":row[1] ,"description":row[2], 
+    # recipes = [{"id": row[0], "title":row[1] ,"description":row[2],
     # "difficulty":row[3], "serving":[4], "cookTime":[5],
     # "image":
     # https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg,
@@ -62,11 +62,11 @@ def all_recipes():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
     cur.execute('SELECT id , name FROM Recipe ORDER BY name ASC;')
-    # fetchall- returns a list of results 
+    # fetchall- returns a list of results
     recipes = cur.fetchall()
     print(recipes)  # DEBUG
     conn.close()
-    return render_template('all_recipes.html', 
+    return render_template('all_recipes.html',
                            page_title='ALL Recipes',
                            recipes=recipes)
 
@@ -90,12 +90,11 @@ def recipe():
     for row in rows:
         ingredients_str = row[7]
         instructions_str = row[8]
-        
         ingredients_list = [item.strip() for item in ingredients_str.split(',')
                             ] if ingredients_str else []
-        instructions_list = [item.strip() for item in 
+        instructions_list = [item.strip() for item in
                              instructions_str.split(',')
-                            ]if instructions_str else []
+                             ]if instructions_str else []
 
         recipes.append({
             "id": row[0],
@@ -110,14 +109,21 @@ def recipe():
             "category": row[10]
         })
 
-    #recipes = [{"id": row[0], "title":row[1] ,"description":row[2], "difficulty":row[3], "serving":[4], "cookTime":[5],"image":"https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg","category":"South Indian"} for row in rows]  # Example data
+    # recipes = [{"id": row[0], "title":row[1] ,"description":row[2],
+    # "difficulty":row[3], "serving":[4], "cookTime":[5],"image":
+    # "https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg",
+    # "category":"South Indian"} for row in rows]  # Example data
     return jsonify(recipes)
 
-#maps the recipe to show its description and other details
+
+# maps the recipe to show its description and other details
 @app.route('/recipe1', methods=['GET'])
 def recipe1():
     recipe_id = request.args.get('id')
-    return render_template('cooking-recipe.html', page_title="Test", recipe_id=recipe_id)
+    return render_template('cooking-recipe.html',
+                           page_title="Test",
+                           recipe_id=recipe_id)
+
 
 if (__name__) == ("__main__"):
     app.run(debug=True)
