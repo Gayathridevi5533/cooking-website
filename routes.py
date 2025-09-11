@@ -56,7 +56,7 @@ def recipes():
 
 
 # list all the cuisines and recipes (in alphabetic order)
-# eventually link each one to a details page
+# eventually links each one to a details page
 @app.route('/all_recipes')
 def all_recipes():
     conn = sqlite3.connect('cooking.db')
