@@ -189,7 +189,7 @@ const recipes1 = [
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch("/api/recipe", {
+    fetch("/my/recipe", {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     })

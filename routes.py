@@ -22,7 +22,7 @@ def root():
 
 # south indian route - called by SOUTH INDIAN in the
 #  nav bar and returns information about the site
-@app.route('/api/recipes', methods=['POST'])
+@app.route('/my/recipes', methods=['POST'])
 def recipes():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
@@ -71,7 +71,7 @@ def all_recipes():
                            recipes=recipes)
 
 
-@app.route('/api/recipe', methods=['POST'])
+@app.route('/my/recipe', methods=['POST'])
 def recipe():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()

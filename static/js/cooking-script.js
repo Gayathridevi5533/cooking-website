@@ -76,7 +76,7 @@ const toastMessage = document.getElementById('toastMessage');
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
-    fetch("/api/recipes", {
+    fetch("/my/recipes", {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     })
