@@ -19,7 +19,8 @@ def root():
                            page_title='HOME',
                            cuisines=cuisines)
 
-
+# list all the cuisines and recipes (in alphabetic order)
+# eventually links each one to a details page
 # south indian route - called by SOUTH INDIAN in the
 #  nav bar and returns information about the site
 @app.route('/my/recipes', methods=['POST'])
@@ -54,21 +55,6 @@ def recipes():
     # "category":"South Indian"} for row in rows]  # Example data
     return jsonify(recipes)
 
-
-# list all the cuisines and recipes (in alphabetic order)
-# eventually links each one to a details page
-@app.route('/all_recipes')
-def all_recipes():
-    conn = sqlite3.connect('cooking.db')
-    cur = conn.cursor()
-    cur.execute('SELECT id , name FROM Recipe ORDER BY name ASC;')
-    # fetchall- returns a list of results
-    recipes = cur.fetchall()
-    print(recipes)  # DEBUG
-    conn.close()
-    return render_template('all_recipes.html',
-                           page_title='ALL Recipes',
-                           recipes=recipes)
 
 
 @app.route('/my/recipe', methods=['POST'])
@@ -117,13 +103,19 @@ def recipe():
 
 
 # maps the recipe to show its description and other details
-@app.route('/recipe1', methods=['GET'])
-def recipe1():
+@app.route('/recipedish/<id>', methods=['GET'])
+def recipedish():
     recipe_id = request.args.get('id')
     return render_template('cooking-recipe.html',
                            page_title="Test",
                            recipe_id=recipe_id)
 
 
-if (__name__) == ("__main__"):
+# Custom 404 error handler
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html'), 404
+
+
+if __name__ == "__main__":
     app.run(debug=True)
