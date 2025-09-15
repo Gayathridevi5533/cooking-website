@@ -9,7 +9,7 @@
 </head>
 <body>
 {% block content %}
-    <!-- Header -->
+    <!-- Header section containing the back button to navigate home -->
     <header class="header">
         <div class="container">
             <button class="back-button" onclick="goBack()">
@@ -19,25 +19,24 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main content area displaying the recipe details -->
     <main class="main-content">
         <div class="container">
             <div class="recipe-grid">
-                <!-- Recipe Image -->
                 <div class="recipe-image-section">
                     <div class="image-container">
-                        <img id="recipe-image" alt="Recipe Image" class="recipe-image">
-                        <span id="recipe-category" class="category-badge"></span>
+                        <img id="recipe-image" alt="Recipe Image" class="recipe-image"> <!-- Placeholder for recipe image, dynamically filled -->
+                        <span id="recipe-category" class="category-badge"></span> <!-- Category badge to label recipe category -->
                     </div>
                 </div>
 
                 <!-- Recipe Info -->
                 <div class="recipe-info-section">
-                    <h1><span id="recipe-title" class="gradient-text"></span></h1>
-                    <p id="recipe-description" class="recipe-description">
+                    <h1><span id="recipe-title" class="gradient-text"></span></h1> <!-- Recipe title dynamically inserted -->
+                    <p id="recipe-description" class="recipe-description"> <!-- Short description of the recipe -->
                     </p>
 
-                    <!-- Recipe Meta -->
+                     <!-- Recipe data including Cook Time, Servings, Difficulty -->
                     <div class="recipe-meta">
                         <div class="meta-item">
                             <i class="fas fa-clock"></i>
@@ -58,21 +57,21 @@
                 </div>
             </div>
 
-            <!-- Ingredients and Instructions -->
+            <!-- Ingredients and Instructions section laid out in grid format -->
             <div class="content-grid">
-                <!-- Ingredients -->
+                <!-- Ingredients Card -->
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Ingredients</h2>
                         <p class="card-description">Everything you need for this recipe</p>
                     </div>
                     <div class="card-content">
-                        <ul id="ingredients-list" class="ingredients-list">
+                        <ul id="ingredients-list" class="ingredients-list"> <!-- List of ingredients dynamically filled -->
                         </ul>
                     </div>
                 </div>
 
-                <!-- Instructions -->
+                <!-- Instructions Card  -->
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Instructions</h2>
@@ -80,12 +79,12 @@
                     </div>
                     <div class="card-content">
                         <ol id="instructions-list" class="instructions-list">
-                        </ol>
+                        </ol> <!-- Ordered list of instructions dynamically filled -->
                     </div>
                 </div>
             </div>
 
-            <!-- Call to Action -->
+            <!-- Call to Action section encouraging users to start cooking -->
             <div class="cta-section" style="text-align: center;">
                 <div class="cta-card">
                     <h3>Ready to Start Cooking?</h3>
@@ -96,7 +95,7 @@
     </main>
     <script>
         const recipeId = "{{ recipe_id }}";
-    </script>
+    </script> <!-- JavaScript code to get recipe ID dynamically passed from backend -->
     <script src="../static/js/cooking-recipe.js"></script>
 {% endblock %}
 </body>
