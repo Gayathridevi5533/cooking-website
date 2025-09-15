@@ -5,24 +5,34 @@ import sqlite3
 app = Flask(__name__)
 
 
-# root route
+# Define the root URL endpoint for the web app.
+# This tells Flask to run this function when a user visits the homepage.
+# next connects to the SQLite database 'cooking.db'.
+# This connection is necessary to retrieve data stored in the database to use in the app.
+# The cursor acts as a control structure to manage the context of database operations  to execute SQL commands.
+# Run a SQL query to select all categories (id and name) ordered alphabetically by name.
+# Ordering alphabetically improves user experience by listing cuisines in a predictable way.
 @app.route('/')
 def root():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
     cur.execute('SELECT id, name FROM Category ORDER BY name ASC;')
-    # fetchall returns a list of results
-    cuisines = cur.fetchall()
+    cuisines = cur.fetchall()  # fetchall returns a list of results
     print(cuisines)  # DEBUG
     conn.close()
     return render_template('cooking-website.html',
                            page_title='HOME',
                            cuisines=cuisines)
 
-# list all the cuisines and recipes (in alphabetic order)
-# eventually links each one to a details page
-# south indian route - called by SOUTH INDIAN in the
-#  nav bar and returns information about the site
+
+
+# The cursor allows us to execute the SQL SELECT query and retrieve results.
+# Execute an SQL query to retrieve detailed information about recipes,
+# including related category names by joining the Recipe and Category tables.
+# Ordering by recipe name alphabetically makes it easier to display recipes in a user-friendly order.
+# Transform the raw tuples returned from the database into a list of dictionaries.
+# Each dictionary represents a recipe with descriptive keys for easier handling in the frontend.
+# Prepending the image path ensures the correct static path is used for displaying images.
 @app.route('/my/recipes', methods=['POST'])
 def recipes():
     conn = sqlite3.connect('cooking.db')
@@ -33,8 +43,7 @@ def recipes():
         " image FROM Recipe r INNER JOIN Category AS c ON r.category = c.id "
         "ORDER BY r.name ASC;"
     )
-    # fetchall returns a list of results
-    rows = cur.fetchall()
+    rows = cur.fetchall() # fetchall returns a list of results
     conn.close()
 
     recipes = [{
@@ -48,13 +57,30 @@ def recipes():
         "category": row[7]
     } for row in rows]
 
-    # recipes = [{"id": row[0], "title":row[1] ,"description":row[2],
-    # "difficulty":row[3], "serving":[4], "cookTime":[5],
-    # "image":
-    # https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg,
-    # "category":"South Indian"} for row in rows]  # Example data
     return jsonify(recipes)
 
+
+# Define a route to handle get requests to '/all recipes'.
+# This endpoint serves the page listing all recipes in the database.
+# Render the 'all recipes.html' template, passing the retrieved recipe list and page title.
+# Rendering this template dynamically populates the page with the current recipes.
+# Execute a complex SQL query joining multiple tables to fetch detailed recipe info including ingredients and instructions
+# the query combines data from Recipe, Category, and IngredientsAndInstructions tables to get all necessary details.
+# Fetch all query results into a list of rows
+# Loop through each row to extract and process ingredients and instructions strings into lists improves usability for the frontend.
+# splitting strings into lists 
+# Split the ingredients string by comma
+@app.route('/all_recipes')
+def all_recipes():
+    conn = sqlite3.connect('cooking.db')
+    cur = conn.cursor()
+    cur.execute('SELECT id , name FROM Recipe ORDER BY name ASC;')
+    recipes = cur.fetchall() # fetchall- returns a list of results
+    print(recipes)  # DEBUG
+    conn.close()
+    return render_template('all_recipes.html',
+                           page_title='ALL Recipes',
+                           recipes=recipes)
 
 
 @app.route('/my/recipe', methods=['POST'])
@@ -68,11 +94,10 @@ def recipe():
         "c.id = r.category INNER JOIN IngredientsAndInstructions AS ii ON "
         "r.id = ii.recipe_id ORDER BY r.name ASC;"
     )
-    # fetchall returns a list of results
-    rows = cur.fetchall()
+    rows = cur.fetchall() # fetchall returns a list of results
     conn.close()
 
-    recipes = []
+    recipes = [] # Initialize an empty list to store formatted recipe dictionaries
     for row in rows:
         ingredients_str = row[7]
         instructions_str = row[8]
@@ -94,28 +119,18 @@ def recipe():
             "image": "/static/images/" + row[9],
             "category": row[10]
         })
-
-    # recipes = [{"id": row[0], "title":row[1] ,"description":row[2],
-    # "difficulty":row[3], "serving":[4], "cookTime":[5],"image":
-    # "https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg",
-    # "category":"South Indian"} for row in rows]  # Example data
     return jsonify(recipes)
 
 
 # maps the recipe to show its description and other details
-@app.route('/recipedish/<id>', methods=['GET'])
-def recipedish():
+@app.route('/recipe1', methods=['GET'])
+def recipe1():
     recipe_id = request.args.get('id')
     return render_template('cooking-recipe.html',
                            page_title="Test",
                            recipe_id=recipe_id)
 
 
-# Custom 404 error handler
-@app.errorhandler(404)
-def not_found(e):
-    return render_template('404.html'), 404
-
-
-if __name__ == "__main__":
+if (__name__) == ("__main__"):
     app.run(debug=True)
+
