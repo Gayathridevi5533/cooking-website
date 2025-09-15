@@ -8,10 +8,13 @@ app = Flask(__name__)
 # Define the root URL endpoint for the web app.
 # This tells Flask to run this function when a user visits the homepage.
 # next connects to the SQLite database 'cooking.db'.
-# This connection is necessary to retrieve data stored in the database to use in the app.
-# The cursor acts as a control structure to manage the context of database operations  to execute SQL commands.
-# Run a SQL query to select all categories (id and name) ordered alphabetically by name.
-# Ordering alphabetically improves user experience by listing cuisines in a predictable way.
+# This connection is necessary to retrieve data stored in the db.
+# The cursor acts as a control structure to manage the context of
+#  database operations  to execute SQL commands.
+# Run a SQL query to select all categories (id and name)
+#  ordered alphabetically by name.
+# Ordering alphabetically improves user experience
+#  by listing cuisines in a predictable way.
 @app.route('/')
 def root():
     conn = sqlite3.connect('cooking.db')
@@ -25,14 +28,18 @@ def root():
                            cuisines=cuisines)
 
 
-
 # The cursor allows us to execute the SQL SELECT query and retrieve results.
 # Execute an SQL query to retrieve detailed information about recipes,
 # including related category names by joining the Recipe and Category tables.
-# Ordering by recipe name alphabetically makes it easier to display recipes in a user-friendly order.
-# Transform the raw tuples returned from the database into a list of dictionaries.
-# Each dictionary represents a recipe with descriptive keys for easier handling in the frontend.
-# Prepending the image path ensures the correct static path is used for displaying images.
+# Ordering by recipe name alphabetically makes it easier to display
+# recipes in a user-friendly order.
+# Transform the raw tuples returned from the database
+#  into a list of dictionaries.
+# Each dictionary represents a recipe with descriptive keys
+#  for easier handling in the frontend.
+# Prepending the image path ensures the correct static
+#  path is used for displaying images.
+
 @app.route('/my/recipes', methods=['POST'])
 def recipes():
     conn = sqlite3.connect('cooking.db')
@@ -43,7 +50,7 @@ def recipes():
         " image FROM Recipe r INNER JOIN Category AS c ON r.category = c.id "
         "ORDER BY r.name ASC;"
     )
-    rows = cur.fetchall() # fetchall returns a list of results
+    rows = cur.fetchall()  # fetchall returns a list of results
     conn.close()
 
     recipes = [{
@@ -62,20 +69,25 @@ def recipes():
 
 # Define a route to handle get requests to '/all recipes'.
 # This endpoint serves the page listing all recipes in the database.
-# Render the 'all recipes.html' template, passing the retrieved recipe list and page title.
-# Rendering this template dynamically populates the page with the current recipes.
-# Execute a complex SQL query joining multiple tables to fetch detailed recipe info including ingredients and instructions
-# the query combines data from Recipe, Category, and IngredientsAndInstructions tables to get all necessary details.
+# Render the 'all recipes.html' template,
+# passing the retrieved recipe list and page title.
+# Rendering this template dynamically
+# populates the page with the current recipes.
+# Execute a complex SQL query joining multiple tables to fetch detailed
+# recipe info including ingredients and instructions
+# the query combines data from Recipe, Category,
+# and IngredientsAndInstructions tables to get all necessary details.
 # Fetch all query results into a list of rows
-# Loop through each row to extract and process ingredients and instructions strings into lists improves usability for the frontend.
-# splitting strings into lists 
+# Loop through each row to extract and process ingredients and
+# instructions strings into lists improves usability for the frontend.
+# splitting strings into lists
 # Split the ingredients string by comma
 @app.route('/all_recipes')
 def all_recipes():
     conn = sqlite3.connect('cooking.db')
     cur = conn.cursor()
     cur.execute('SELECT id , name FROM Recipe ORDER BY name ASC;')
-    recipes = cur.fetchall() # fetchall- returns a list of results
+    recipes = cur.fetchall()   # fetchall- returns a list of results
     print(recipes)  # DEBUG
     conn.close()
     return render_template('all_recipes.html',
@@ -94,10 +106,10 @@ def recipe():
         "c.id = r.category INNER JOIN IngredientsAndInstructions AS ii ON "
         "r.id = ii.recipe_id ORDER BY r.name ASC;"
     )
-    rows = cur.fetchall() # fetchall returns a list of results
+    rows = cur.fetchall()  # fetchall returns a list of results
     conn.close()
 
-    recipes = [] # Initialize an empty list to store formatted recipe dictionaries
+    recipes = []  # Initialize an empty list to store recipe dictionaries
     for row in rows:
         ingredients_str = row[7]
         instructions_str = row[8]
@@ -133,4 +145,3 @@ def recipe1():
 
 if (__name__) == ("__main__"):
     app.run(debug=True)
-
