@@ -110,37 +110,6 @@ body {
     line-height: 1.6;
 }
 
-/* Rating */
-.rating-section {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-}
-
-.stars {
-    display: flex;
-    gap: 2px;
-}
-
-.stars i {
-    color: #c1dbeb;
-    font-size: 1.2rem;
-}
-
-.stars i.far {
-    color: #ddd;
-}
-
-.rating-number {
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-left: 0.5rem;
-}
-
-.reviews-count {
-    color: #666;
-}
 
 /* Recipe Meta */
 .recipe-meta {
