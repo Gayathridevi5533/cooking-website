@@ -134,7 +134,13 @@ def recipe():
     return jsonify(recipes)
 
 
-# maps the recipe to show its description and other details
+
+# custom error handler
+@app.errorhandler(404)
+def not_found(e):
+    render_template("404.html")
+
+   # maps the recipe to show its description and other details
 @app.route('/recipe1', methods=['GET'])
 def recipe1():
     recipe_id = request.args.get('id')
