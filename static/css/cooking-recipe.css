@@ -66,7 +66,7 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    image: "https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg";
+    background-image: "https://ministryofcurry.com/wp-content/uploads/2023/05/sambar-11.jpg";
 }
 
 .recipe-image {
