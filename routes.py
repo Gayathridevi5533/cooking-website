@@ -79,7 +79,7 @@ def recipes():
 # and IngredientsAndInstructions tables to get all necessary details.
 # Fetch all query results into a list of rows
 # Loop through each row to extract and process ingredients and
-# instructions strings into lists improves usability for the frontend.
+# instruction strings into lists improves usability for the frontend.
 # splitting strings into lists
 # Split the ingredients string by comma
 @app.route('/all_recipes')
@@ -134,13 +134,13 @@ def recipe():
     return jsonify(recipes)
 
 
-
 # custom error handler
 @app.errorhandler(404)
 def not_found(e):
-    render_template("404.html")
+    return render_template("404.html")
 
-   # maps the recipe to show its description and other details
+
+# maps the recipe to show its description and other details
 @app.route('/recipe1', methods=['GET'])
 def recipe1():
     recipe_id = request.args.get('id')

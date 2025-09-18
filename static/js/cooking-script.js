@@ -102,7 +102,7 @@ function renderRecipes() {
                         <span>${recipe.servings} servings</span>
                     </div>
                     <div class="recipe-meta-item">
-                        <i class="fas fa-chef-hat"></i>
+                        <i class="fas fa-utensils"></i>
                         <span>${recipe.difficulty}</span>
                     </div>
                 </div>

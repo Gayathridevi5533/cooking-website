@@ -38,8 +38,7 @@ function loadRecipe() {
     document.getElementById('servings').textContent = recipe.servings;
     document.getElementById('difficulty').textContent = recipe.difficulty;
     
-    // Update stars
-    // updateStars(recipe.rating);
+
     
     // Update ingredients
     const ingredientsList = document.getElementById('ingredients-list');
@@ -54,32 +53,6 @@ function loadRecipe() {
     ).join('');
 }
 
-// Update star rating display
-function updateStars(rating) {
-    const starsContainer = document.getElementById('recipe-stars');
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    
-    let starsHTML = '';
-    
-    // Add full stars
-    for (let i = 0; i < fullStars; i++) {
-        starsHTML += '<i class="fas fa-star"></i>';
-    }
-    
-    // Add half star if needed
-    if (hasHalfStar) {
-        starsHTML += '<i class="fas fa-star-half-alt"></i>';
-    }
-    
-    // Add empty stars to make 5 total
-    const remainingStars = 5 - Math.ceil(rating);
-    for (let i = 0; i < remainingStars; i++) {
-        starsHTML += '<i class="far fa-star"></i>';
-    }
-    
-    starsContainer.innerHTML = starsHTML;
-}
 
 // Back button functionality
 function goBack() {
